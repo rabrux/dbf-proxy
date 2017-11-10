@@ -42,9 +42,8 @@ namespace dbf {
                 UsageMessage();
 
             // verify if base path is an existing directory
-            if (!Directory.Exists(@path)) {
+            if (!Directory.Exists(@path))
                 ErrorMessage("the specified path isnt directory");
-            }
 
             // query execution
             DataTable rs = new DataTable();
@@ -103,7 +102,7 @@ namespace dbf {
          * error function
          * */
         public static void ErrorMessage(string message) {
-            Console.WriteLine( message );
+            Console.Error.WriteLine( message );
             Environment.Exit(2);
         }
     }
