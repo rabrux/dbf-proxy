@@ -81,9 +81,9 @@ namespace dbf {
                     JSONString.Append("{");
                     for (int j = 0; j < table.Columns.Count; j++) {
                         if (j < table.Columns.Count - 1)
-                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\",");
+                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString().Trim() + "\",");
                         else if (j == table.Columns.Count - 1)
-                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\"");
+                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString().Trim() + "\"");
                     }
                     if (i == table.Rows.Count - 1)
                         JSONString.Append("}");
