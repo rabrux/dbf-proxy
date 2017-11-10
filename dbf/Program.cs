@@ -43,7 +43,7 @@ namespace dbf {
 
             // verify if base path is an existing directory
             if (!Directory.Exists(@path)) {
-                ErrorMessage("the specified path isnt a directory");
+                ErrorMessage("the specified path isnt directory");
             }
 
             // query execution
@@ -51,12 +51,19 @@ namespace dbf {
             OleDbConnection db = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=" + path );
             db.Open();
             if (db.State == ConnectionState.Open) {
-                OleDbCommand query = new OleDbCommand(sqlQuery, db);
-                OleDbDataAdapter DA = new OleDbDataAdapter(query);
-                DA.Fill(rs);
-                db.Close();
-                string result = DataTableToJSONWithStringBuilder(rs);
-                Console.WriteLine(result);
+                try
+                {
+                    OleDbCommand query = new OleDbCommand(sqlQuery, db);
+                    OleDbDataAdapter DA = new OleDbDataAdapter(query);
+                    DA.Fill(rs);
+                    db.Close();
+                    string result = DataTableToJSONWithStringBuilder(rs);
+                    Console.WriteLine(result);
+                }
+                catch ( OleDbException ex ) {
+                    Console.WriteLine(ex.Message);
+                }
+                
             }
             else
                 ErrorMessage("database connection error");
@@ -92,6 +99,9 @@ namespace dbf {
             ErrorMessage("usage: dbf --path <dbf_base_path_files> --query <query_string>");
         }
 
+        /**
+         * error function
+         * */
         public static void ErrorMessage(string message) {
             Console.WriteLine( message );
             Environment.Exit(2);
