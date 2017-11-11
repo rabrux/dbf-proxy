@@ -60,7 +60,7 @@ namespace dbf {
                     Console.WriteLine(result);
                 }
                 catch ( OleDbException ex ) {
-                    Console.WriteLine(ex.Message);
+                    ErrorMessage(ex.Message);
                 }
                 
             }
